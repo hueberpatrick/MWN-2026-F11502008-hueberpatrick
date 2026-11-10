@@ -23,7 +23,7 @@ Contents
 • 6. Limitations and Future Work
 • 7. References
 
-> **Reproducibility note:** “Reported” refers to values identified in the reviewed material. “To verify” means the exact value has not been established here; it must not be presented as a published experimental setting. Proposed SNS3 values are explicitly separated from paper settings. **No SNS3 experiment was required or performed for A3.**
+**Reproducibility note:** “Reported” refers to values identified in the reviewed material. “To verify” means the exact value has not been established here; it must not be presented as a published experimental setting. Proposed SNS3 values are explicitly separated from paper settings. **No SNS3 experiment was required or performed for A3.**
 
 ────────
 
@@ -368,7 +368,7 @@ Scope caveat: This revision is based on the A1 topic discussed during the projec
 
 5. Proposed SNS3 Experiment
 
-> **Proposal only:** No simulation was run for A3. All values in this section are candidate settings and must be verified against a working SNS3 scenario.
+**Proposal only:** No simulation was run for A3. All values in this section are candidate settings and must be verified 
 
 5.1 Conceptual topology
 
