@@ -1,53 +1,65 @@
-Literature Review
+# <center>Literature Review</center>
 
-Project: QoS Performance Analysis of 5G Non-Terrestrial Networks Using SNS3
-Focus: Network load, satellite-link conditions, and end-to-end latency
+- [Literature Review](#literature-review)
+- [1 On the Queuing Delay of Time\-Varying Channels in Low Earth Orbit Satellite Constellations](#1-on-the-queuing-delay-of-time-varying-channels-in-low-earth-orbit-satellite-constellations)
+  - [1\.1 Problem, importance, challenges, proposed method](#11-problem-importance-challenges-proposed-method)
+  - [1\.2 System model](#12-system-model)
+  - [1\.3 Experimental results](#13-experimental-results)
+  - [1\.4 SNS3 reproduction parameters](#14-sns3-reproduction-parameters)
+  - [1\.5 What this means for my project](#15-what-this-means-for-my-project)
+- [2 NS\-3\-based 5G Satellite\-Terrestrial Integrated Network Simulator](#2-ns-3-based-5g-satellite-terrestrial-integrated-network-simulator)
+  - [2\.1 Problem, importance, challenges, proposed method](#21-problem-importance-challenges-proposed-method)
+  - [2\.2 System model](#22-system-model)
+  - [2\.3 Experimental results](#23-experimental-results)
+  - [2\.4 SNS3 reproduction parameters](#24-sns3-reproduction-parameters)
+  - [2\.5 What this means for my project](#25-what-this-means-for-my-project)
+- [3 Comparison of the two papers](#3-comparison-of-the-two-papers)
+  - [3\.1 Common findings](#31-common-findings)
+  - [3\.2 Complementary findings](#32-complementary-findings)
+  - [3\.3 Research gap](#33-research-gap)
+- [4 Revised A1 project proposal](#4-revised-a1-project-proposal)
+  - [4\.1 Original idea](#41-original-idea)
+  - [4\.2 Revised title](#42-revised-title)
+  - [4\.3 Research question](#43-research-question)
+  - [4\.4 Changes and reasons](#44-changes-and-reasons)
+- [5 Proposed SNS3 experiment](#5-proposed-sns3-experiment)
+  - [5\.1 Conceptual topology](#51-conceptual-topology)
+  - [5\.2 Proposed input parameters](#52-proposed-input-parameters)
+  - [5\.3 Output metrics](#53-output-metrics)
+  - [5\.4 Planned procedure](#54-planned-procedure)
+  - [5\.5 Hypotheses](#55-hypotheses)
+- [6 Limitations and future work](#6-limitations-and-future-work)
+  - [6\.1 Literature limitations](#61-literature-limitations)
+  - [6\.2 Planned experiment limitations](#62-planned-experiment-limitations)
+  - [6\.3 Future extensions](#63-future-extensions)
+- [7 References](#7-references)
 
-Contents
+**Project:** QoS Performance Analysis of 5G Non\-Terrestrial Networks Using SNS3
+**Focus:** Network load, satellite\-link conditions, and end\-to\-end latency
 
-• 1. Queuing Delay in LEO Satellite Constellations
-  • 1.1 Problem, importance, challenges, method
-  • 1.2 System model
-  • 1.3 Experimental results
-  • 1.4 Reproduction parameters
-  • 1.5 Implications for my project
-• 2. NS-3-based 5G Satellite-Terrestrial Integrated Network Simulator
-  • 2.1 Problem, importance, challenges, method
-  • 2.2 System model
-  • 2.3 Experimental results
-  • 2.4 Reproduction parameters
-  • 2.5 Implications for my project
-• 3. Comparison
-• 4. Revised A1 Project Proposal
-• 5. Proposed SNS3 Experiment
-• 6. Limitations and Future Work
-• 7. References
+> **Reproducibility note:** “Reported” refers to values identified in the reviewed material. “To verify” means the exact value has not been established here; it must not be presented as a published experimental setting. Proposed SNS3 values are explicitly separated from paper settings. **No SNS3 experiment was required or performed for A3.**
 
-**Reproducibility note:** “Reported” refers to values identified in the reviewed material. “To verify” means the exact value has not been established here; it must not be presented as a published experimental setting. Proposed SNS3 values are explicitly separated from paper settings. **No SNS3 experiment was required or performed for A3.**
+## 1 On the Queuing Delay of Time\-Varying Channels in Low Earth Orbit Satellite Constellations
 
-────────
+**Paper:** *On the Queuing Delay of Time\-Varying Channels in Low Earth Orbit Satellite Constellations* &#40;IEEE Access, 2021&#41;\.
+**Source:** https://ieeexplore\.ieee\.org/document/9454162
+**DOI:** https://doi\.org/10\.1109/ACCESS\.2021\.3089005
 
-1. Queuing Delay in LEO Satellite Constellations
+### 1\.1 Problem, importance, challenges, proposed method
 
-Paper: On the Queuing Delay of Time-Varying Channels in Low Earth Orbit Satellite Constellations (IEEE Access, 2021).
-Source: https://ieeexplore.ieee.org/document/9454162
-DOI: https://doi.org/10.1109/ACCESS.2021.3089005
+**Problem\.** LEO satellites reduce propagation distances compared with GEO systems, but their packet delivery times are still affected by variable ground\-to\-satellite channels and congestion\. A fixed propagation\-delay estimate cannot explain packet waiting times under fluctuating service capacity\.
 
-1.1 Problem, importance, challenges, method
+**Importance\.** Real\-time applications require not only a low mean delay but also predictable delivery\. Queueing delay can dominate the performance of a satellite path when offered traffic approaches the effective link capacity\.
 
-Problem. LEO satellites reduce propagation distances compared with GEO systems, but their packet delivery times are still affected by variable ground-to-satellite channels and congestion. A fixed propagation-delay estimate cannot explain packet waiting times under fluctuating service capacity.
+**Challenges:**
 
-Importance. Real-time applications require not only a low mean delay but also predictable delivery. Queueing delay can dominate the performance of a satellite path when offered traffic approaches the effective link capacity.
+1. The ground\-satellite channel varies between favorable and degraded conditions\.
+2. Several satellite hops contribute to end\-to\-end delay\.
+3. Background traffic shares link capacity and creates queues\.
+4. A mean delay can conceal a long tail of slow packets\.
+5. Analytical queue models must be checked against simulation\.
 
-Challenges:
-
-1. The ground-satellite channel varies between favorable and degraded conditions.
-2. Several satellite hops contribute to end-to-end delay.
-3. Background traffic shares link capacity and creates queues.
-4. A mean delay can conceal a long tail of slow packets.
-5. Analytical queue models must be checked against simulation.
-
-Proposed method. The authors combine a time-varying Land Mobile Satellite (LMS) channel/queue model for ground-satellite connections with queueing models for inter-satellite links (ISLs). They validate the analysis using an event-driven C++ simulator.
+**Proposed method\.** The authors combine a time\-varying Land Mobile Satellite &#40;LMS&#41; channel/queue model for ground\-satellite connections with queueing models for inter\-satellite links &#40;ISLs&#41;\. They validate the analysis using an event\-driven C\+\+ simulator\.
 
 |Channel condition  |Interpretation             |Expected impact                                       |
 |-------------------|---------------------------|------------------------------------------------------|
@@ -55,12 +67,13 @@ Proposed method. The authors combine a time-varying Land Mobile Satellite (LMS) 
 |Mid-Shadowing      |Moderately degraded channel|Lower service capacity and potential queue growth     |
 |Deep-Shadowing     |Strongly degraded channel  |Very low service capacity and potentially large delays|
 
-The study concerns satellite queueing; it is not an SNS3 or 5G NR simulation.
+The study concerns satellite queueing; **it is not an SNS3 or 5G NR simulation**\.
 
-1.2 System model
+### 1\.2 System model
 
-Environment: A communication route between two ground stations via a LEO constellation. The path contains an uplink, multiple ISLs, and a downlink. A fixed route snapshot is used for the queueing analysis.
+**Environment:** A communication route between two ground stations via a LEO constellation\. The path contains an uplink, multiple ISLs, and a downlink\. A fixed route snapshot is used for the queueing analysis\.
 
+```mermaid
 flowchart LR
     A[Ground station A] --> U[Uplink: time-varying LMS]
     U --> S1[LEO satellite 1]
@@ -68,16 +81,17 @@ flowchart LR
     I --> S6[LEO satellite 6]
     S6 --> D[Downlink: time-varying LMS]
     D --> B[Ground station B]
+```
 
-Assumptions:
+**Assumptions:**
 
-• First-come, first-served packet processing.
-• Poisson arrivals in the analytical validation scenarios.
-• An idealized queueing representation; actual physical and protocol behavior is simplified.
-• ISLs have more stable conditions than the modeled ground-satellite channels.
-• The analysis separates the effects of arrival rates and service rates.
+- First\-come, first\-served packet processing\.
+- Poisson arrivals in the analytical validation scenarios\.
+- An idealized queueing representation; actual physical and protocol behavior is simplified\.
+- ISLs have more stable conditions than the modeled ground\-satellite channels\.
+- The analysis separates the effects of arrival rates and service rates\.
 
-Inputs and outputs:
+**Inputs and outputs:**
 
 |Category|Variable              |Meaning                                    |
 |--------|----------------------|-------------------------------------------|
@@ -91,27 +105,27 @@ Inputs and outputs:
 |Output  |End-to-end delay      |Total packet travel time                   |
 |Output  |Delay distribution    |Variability and tail of delay              |
 
-Performance metrics. A useful conceptual decomposition is:
+**Performance metrics\.** A useful conceptual decomposition is:
 
 $$
-D_{\mathrm{E2E}} = D_{\mathrm{propagation}} + D_{\mathrm{transmission}} + D_{\mathrm{queueing}}.
+D\_\{\\mathrm\{E2E\}\} = D\_\{\\mathrm\{propagation\}\} \+ D\_\{\\mathrm\{transmission\}\} \+ D\_\{\\mathrm\{queueing\}\}\.
 $$
 
 For $N$ received packets, mean delay and its standard deviation are:
 
 $$
-\overline{D} = \frac{1}{N}\sum_{i=1}^{N}D_i
+\\overline\{D\} = \\frac\{1\}\{N\}\\sum\_\{i=1\}^\{N\}D\_i
 $$
 
 $$
-\sigma_D = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(D_i-\overline{D})^2}.
+\\sigma\_D = \\sqrt\{\\frac\{1\}\{N\}\\sum\_\{i=1\}^\{N\}&#40;D\_i\-\\overline\{D\}&#41;^2\}\.
 $$
 
-These formulas describe metrics relevant to my proposed experiment; they are not claims that the paper uses precisely these symbols.
+These formulas describe metrics relevant to my proposed experiment; they are not claims that the paper uses precisely these symbols\.
 
-1.3 Experimental results
+### 1\.3 Experimental results
 
-The paper compares analytical predictions with an event-driven simulator and examines how traffic and satellite channel conditions influence queueing and end-to-end delays.
+The paper compares analytical predictions with an event\-driven simulator and examines how traffic and satellite channel conditions influence queueing and end\-to\-end delays\.
 
 |Investigation            |Varied factors                |Main interpretation                                               |
 |-------------------------|------------------------------|------------------------------------------------------------------|
@@ -121,11 +135,11 @@ The paper compares analytical predictions with an event-driven simulator and exa
 |End-to-end path          |Ground links and ISLs         |Ground-satellite link behavior matters for total delay            |
 |Delay distribution       |Different traffic conditions  |Mean delay alone does not characterize the high-delay tail        |
 
-Result interpretation. Even when the satellite path remains unchanged, additional offered traffic can increase queue occupancy and delay. This means that the number of active sources and their traffic rates are sensible experimental inputs for a QoS study.
+**Result interpretation\.** Even when the satellite path remains unchanged, additional offered traffic can increase queue occupancy and delay\. This means that the number of active sources and their traffic rates are sensible experimental inputs for a QoS study\.
 
-Caution: Exact numerical claims about particular figures or percentiles should be checked against the full PDF before being quoted in a presentation. The literature review should not manufacture figure values.
+**Caution:** Exact numerical claims about particular figures or percentiles should be checked against the full PDF before being quoted in a presentation\. The literature review should not manufacture figure values\.
 
-1.4 Reproduction parameters
+### 1\.4 SNS3 reproduction parameters
 
 |Parameter                      |Paper setting / information                   |Status   |
 |-------------------------------|----------------------------------------------|---------|
@@ -146,65 +160,65 @@ Caution: Exact numerical claims about particular figures or percentiles should b
 |Random seeds                   |Exact seeds not established here              |To verify|
 |Simulator                      |Event-driven C++ simulation                   |Reported |
 
-Reproduction strategy. The main target is not to reimplement the full analytical LMS model. I will use this paper as a reference for the direction of the load–delay relationship and for selecting meaningful QoS metrics. Any numerical reproduction would require the complete channel transition model, the route configuration, and matching queue/service assumptions.
+**Reproduction strategy\.** The main target is not to reimplement the full analytical LMS model\. I will use this paper as a reference for the *direction* of the load–delay relationship and for selecting meaningful QoS metrics\. Any numerical reproduction would require the complete channel transition model, the route configuration, and matching queue/service assumptions\.
 
-1.5 Implications for my project
+### 1\.5 What this means for my project
 
-1. Make network load a primary input. The paper explains why queueing delay rises when traffic approaches the link service capacity.
-2. Measure more than the average. Delay standard deviation and the 95th percentile can reveal tail behavior.
-3. Keep the baseline topology fixed. Changing orbit, channel and traffic simultaneously would make interpretation difficult.
-4. Use a qualitative comparison first. SNS3 is not the simulator used in this study.
-5. Revise A1 to a measurable question. The core question becomes the relationship between offered load and end-to-end packet latency.
+1. **Make network load a primary input\.** The paper explains why queueing delay rises when traffic approaches the link service capacity\.
+2. **Measure more than the average\.** Delay standard deviation and the 95th percentile can reveal tail behavior\.
+3. **Keep the baseline topology fixed\.** Changing orbit, channel and traffic simultaneously would make interpretation difficult\.
+4. **Use a qualitative comparison first\.** SNS3 is not the simulator used in this study\.
+5. **Revise A1 to a measurable question\.** The core question becomes the relationship between offered load and end\-to\-end packet latency\.
 
-────────
+## 2 NS\-3\-based 5G Satellite\-Terrestrial Integrated Network Simulator
 
-2. NS-3-based 5G Satellite-Terrestrial Integrated Network Simulator
+**Paper:** *NS\-3\-based 5G Satellite\-Terrestrial Integrated Network Simulator* &#40;IEEE MELECON, 2022&#41;\.
+**Source:** https://ieeexplore\.ieee\.org/document/9843098
+**DOI:** https://doi\.org/10\.1109/MELECON53508\.2022\.9843098
 
-Paper: NS-3-based 5G Satellite-Terrestrial Integrated Network Simulator (IEEE MELECON, 2022).
-Source: https://ieeexplore.ieee.org/document/9843098
-DOI: https://doi.org/10.1109/MELECON53508.2022.9843098
+### 2\.1 Problem, importance, challenges, proposed method
 
-2.1 Problem, importance, challenges, method
+**Problem\.** Future 5G systems must provide coverage outside conventional terrestrial cellular infrastructure\. Integrating satellites into 5G networks introduces long propagation distances, moving cells, changing visibility and resource\-management requirements\. Researchers need a system\-level environment to study these effects\.
 
-Problem. Future 5G systems must provide coverage outside conventional terrestrial cellular infrastructure. Integrating satellites into 5G networks introduces long propagation distances, moving cells, changing visibility and resource-management requirements. Researchers need a system-level environment to study these effects.
+**Importance\.** An open\-source simulator permits controlled evaluation without constructing an expensive satellite testbed\. It can compare satellite and terrestrial configurations and provide reproducible performance measurements\.
 
-Importance. An open-source simulator permits controlled evaluation without constructing an expensive satellite testbed. It can compare satellite and terrestrial configurations and provide reproducible performance measurements.
+**Challenges:**
 
-Challenges:
+1. LEO satellites move relative to ground users\.
+2. Users may require handover between satellite gNBs\.
+3. Propagation delays differ from terrestrial 5G\.
+4. Traffic profiles can have different service requirements\.
+5. Spectrum and radio resources must be allocated to connected UEs\.
+6. System\-level results depend on PHY/MAC and traffic configuration\.
 
-1. LEO satellites move relative to ground users.
-2. Users may require handover between satellite gNBs.
-3. Propagation delays differ from terrestrial 5G.
-4. Traffic profiles can have different service requirements.
-5. Spectrum and radio resources must be allocated to connected UEs.
-6. System-level results depend on PHY/MAC and traffic configuration.
+**Proposed method\.** The authors develop an ns\-3\-based 5G satellite\-terrestrial simulator in which satellites can act as gNBs\. The framework represents satellite movement, UE connectivity, handover, and differentiated radio\-resource configurations using component carriers &#40;CCs&#41; and bandwidth parts &#40;BWPs&#41;\.
 
-Proposed method. The authors develop an ns-3-based 5G satellite-terrestrial simulator in which satellites can act as gNBs. The framework represents satellite movement, UE connectivity, handover, and differentiated radio-resource configurations using component carriers (CCs) and bandwidth parts (BWPs).
+**Simulator distinction:** This paper uses a specific ns\-3\-based 5G simulator, **not SNS3**\. Its scenario is a useful methodological reference, not a drop\-in SNS3 configuration\.
 
-Simulator distinction: This paper uses a specific ns-3-based 5G simulator, not SNS3. Its scenario is a useful methodological reference, not a drop-in SNS3 configuration.
+### 2\.2 System model
 
-2.2 System model
+**Environment:** A satellite\-terrestrial 5G scenario with LEO satellite gNBs, ground\-based user equipment, a core\-network connection, and a remote host sending application traffic\.
 
-Environment: A satellite-terrestrial 5G scenario with LEO satellite gNBs, ground-based user equipment, a core-network connection, and a remote host sending application traffic.
-
+```mermaid
 flowchart LR
     RH[Remote host] --> CN[Core network]
     CN --> G1[LEO satellite gNB 1]
     CN --> G2[LEO satellite gNB 2]
     G1 --> UE[Ground user equipment]
     G2 -. handover .-> UE
+```
 
-Assumptions and setup:
+**Assumptions and setup:**
 
-• Satellites are modeled as 5G gNBs.
-• Two satellite gNBs are included.
-• The number of ground UEs is varied.
-• Satellites follow a specified circular-orbit configuration.
-• Communication requires a minimum elevation angle.
-• A remote host sends packets to the UEs.
-• Mobility and handover can occur within the simulated interval.
+- Satellites are modeled as 5G gNBs\.
+- Two satellite gNBs are included\.
+- The number of ground UEs is varied\.
+- Satellites follow a specified circular\-orbit configuration\.
+- Communication requires a minimum elevation angle\.
+- A remote host sends packets to the UEs\.
+- Mobility and handover can occur within the simulated interval\.
 
-Inputs and outputs:
+**Inputs and outputs:**
 
 |Category|Variable                   |Meaning                          |
 |--------|---------------------------|---------------------------------|
@@ -218,23 +232,23 @@ Inputs and outputs:
 |Output  |Handover behavior          |Changes in serving satellite     |
 |Output  |Packet timestamps          |Basis for delay calculation      |
 
-Primary performance metric: Average Delivery Time.
+**Primary performance metric: Average Delivery Time\.**
 
 $$
-ADT = \frac{1}{P}\sum_{p=1}^{P}\left(T_{RX,p}-T_{TX,p}\right)
+ADT = \\frac\{1\}\{P\}\\sum\_\{p=1\}^\{P\}\\left&#40;T\_\{RX,p\}\-T\_\{TX,p\}\\right&#41;
 $$
 
 where:
 
-• $P$ is the number of successfully received packets used in the delay average;
-• $T_{TX,p}$ is the transmission timestamp of packet $p$;
-• $T_{RX,p}$ is the reception timestamp of packet $p$.
+- $P$ is the number of **successfully received** packets used in the delay average;
+- $T\_\{TX,p\}$ is the transmission timestamp of packet $p$;
+- $T\_\{RX,p\}$ is the reception timestamp of packet $p$\.
 
-This received-packet convention prevents lost packets from being assigned a nonexistent reception time. Packet delivery ratio should be reported separately when losses occur. The exact denominator convention of the paper should be checked before claiming an exact reproduction of its ADT calculation.
+This received\-packet convention prevents lost packets from being assigned a nonexistent reception time\. Packet delivery ratio should be reported separately when losses occur\. The exact denominator convention of the paper should be checked before claiming an exact reproduction of its ADT calculation\.
 
-2.3 Experimental results
+### 2\.3 Experimental results
 
-The paper compares satellite-based and terrestrial 5G configurations using ADT and demonstrates the use of moving satellite gNBs.
+The paper compares satellite\-based and terrestrial 5G configurations using ADT and demonstrates the use of moving satellite gNBs\.
 
 |Investigation               |Configuration                            |Main interpretation                                   |
 |----------------------------|-----------------------------------------|------------------------------------------------------|
@@ -244,21 +258,21 @@ The paper compares satellite-based and terrestrial 5G configurations using ADT a
 |Mobility                    |Two satellite gNBs                       |Handover is represented in the simulation             |
 |Traffic profiles            |Two defined profiles                     |Simulator can distinguish service requirements        |
 
-Propagation-delay estimate. For a link distance $d$ and speed of light $c$, the ideal one-way propagation time is:
+**Propagation\-delay estimate\.** For a link distance $d$ and speed of light $c$, the ideal one\-way propagation time is:
 
 $$
-D_{\mathrm{propagation}} = \frac{d}{c}, \qquad c \approx 3.0\times 10^8\ \mathrm{m/s}.
+D\_\{\\mathrm\{propagation\}\} = \\frac\{d\}\{c\}, \\qquad c \\approx 3\.0\\times 10^8\\ \\mathrm\{m/s\}\.
 $$
 
-At a vertical distance of 600 km, this gives approximately 2 ms for one idealized one-way segment. The actual slant range is longer when the satellite is away from zenith. This estimate is not the same as full application-layer ADT.
+At a vertical distance of 600 km, this gives approximately 2 ms for **one idealized one\-way segment**\. The actual slant range is longer when the satellite is away from zenith\. This estimate is not the same as full application\-layer ADT\.
 
-Interpretation. The paper establishes a practical approach to defining satellite geometry, generating packets, and measuring delivery times. It is especially relevant to the experimental design of my project.
+**Interpretation\.** The paper establishes a practical approach to defining satellite geometry, generating packets, and measuring delivery times\. It is especially relevant to the experimental design of my project\.
 
-Caution: The exact numerical values plotted in the published ADT figure should be read from the full figure rather than inferred from this qualitative description.
+**Caution:** The exact numerical values plotted in the published ADT figure should be read from the full figure rather than inferred from this qualitative description\.
 
-2.4 Reproduction parameters
+### 2\.4 SNS3 reproduction parameters
 
-Scenario parameters reported in Table I:
+**Scenario parameters reported in Table I:**
 
 |Parameter                  |Paper setting                                      |Status   |
 |---------------------------|---------------------------------------------------|---------|
@@ -281,30 +295,28 @@ Scenario parameters reported in Table I:
 |Random seeds / runs        |Exact values not established here                  |To verify|
 |Simulator commit / revision|Exact version must be matched                      |To verify|
 
-Reproduction procedure:
+**Reproduction procedure:**
 
-1. Configure two LEO satellite gNBs with the reported orbital parameters.
-2. Create a remote host and 1–6 UEs.
-3. Configure downlink packet flows with the reported packet size and count.
-4. Enable the relevant satellite movement and handover mechanisms.
-5. Run the 2-second scenario.
-6. Record packet transmission and reception timestamps.
-7. Calculate ADT for successfully delivered packets.
-8. Compare satellite and terrestrial reference configurations.
+1. Configure two LEO satellite gNBs with the reported orbital parameters\.
+2. Create a remote host and 1–6 UEs\.
+3. Configure downlink packet flows with the reported packet size and count\.
+4. Enable the relevant satellite movement and handover mechanisms\.
+5. Run the 2\-second scenario\.
+6. Record packet transmission and reception timestamps\.
+7. Calculate ADT for successfully delivered packets\.
+8. Compare satellite and terrestrial reference configurations\.
 
-Reproduction limitations. Matching the published results requires the original simulator implementation and its full PHY/MAC and traffic settings. The SNS3 API and satellite protocol model may differ, so the experiment should initially be used as a conceptual reference rather than a promise of exact numerical reproduction.
+**Reproduction limitations\.** Matching the published results requires the original simulator implementation and its full PHY/MAC and traffic settings\. The SNS3 API and satellite protocol model may differ, so the experiment should initially be used as a conceptual reference rather than a promise of exact numerical reproduction\.
 
-2.5 Implications for my project
+### 2\.5 What this means for my project
 
-1. Use a small satellite topology. Two satellites and a limited number of UEs are sufficient to motivate a manageable first scenario.
-2. Define latency precisely. ADT provides a straightforward packet-timestamp-based metric.
-3. Keep orbital geometry fixed in the initial load sweep. This isolates the effect of offered traffic.
-4. Treat handover as an extension. It adds complexity and can be evaluated after the baseline works.
-5. Verify SNS3 feature support before implementation. The paper’s simulator and SNS3 are different frameworks.
+1. **Use a small satellite topology\.** Two satellites and a limited number of UEs are sufficient to motivate a manageable first scenario\.
+2. **Define latency precisely\.** ADT provides a straightforward packet\-timestamp\-based metric\.
+3. **Keep orbital geometry fixed in the initial load sweep\.** This isolates the effect of offered traffic\.
+4. **Treat handover as an extension\.** It adds complexity and can be evaluated after the baseline works\.
+5. **Verify SNS3 feature support before implementation\.** The paper’s simulator and SNS3 are different frameworks\.
 
-────────
-
-3. Comparison
+## 3 Comparison of the two papers
 
 |Criterion                 |Paper 1: LEO Queuing Delay                     |Paper 2: 5G Satellite-Terrestrial Simulator|
 |--------------------------|-----------------------------------------------|-------------------------------------------|
@@ -318,37 +330,35 @@ Reproduction limitations. Matching the published results requires the original s
 |Direct SNS3 implementation|No                                             |No                                         |
 |Contribution to my project|Motivation for load-dependent delay            |Topology and packet-timestamp measurement  |
 
-3.1 Common findings
+### 3\.1 Common findings
 
-Both papers demonstrate that satellite network performance cannot be characterized by propagation distance alone. The communication path, traffic demand, and network implementation affect measured delay.
+Both papers demonstrate that satellite network performance cannot be characterized by propagation distance alone\. The communication path, traffic demand, and network implementation affect measured delay\.
 
-3.2 Complementary findings
+### 3\.2 Complementary findings
 
-Paper 1 explains why packet queues and channel variability increase latency. Paper 2 demonstrates how a system-level 5G satellite scenario can be configured and measured. Together they motivate a controlled experiment in which traffic load changes while satellite geometry remains fixed.
+Paper 1 explains *why* packet queues and channel variability increase latency\. Paper 2 demonstrates *how* a system\-level 5G satellite scenario can be configured and measured\. Together they motivate a controlled experiment in which traffic load changes while satellite geometry remains fixed\.
 
-3.3 Research gap
+### 3\.3 Research gap
 
-Neither paper evaluates precisely my proposed SNS3-based parameter sweep. My objective is therefore to establish a reproducible baseline experiment, not to claim that these papers have already validated the exact SNS3 configuration.
+Neither paper evaluates precisely my proposed SNS3\-based parameter sweep\. My objective is therefore to establish a **reproducible baseline experiment**, not to claim that these papers have already validated the exact SNS3 configuration\.
 
-────────
+## 4 Revised A1 project proposal
 
-4. Revised A1 Project Proposal
+### 4\.1 Original idea
 
-4.1 Original idea
+**Original title:** *QoS Performance Analysis of 5G Non\-Terrestrial Networks Using ns\-3*\.
 
-Original title: QoS Performance Analysis of 5G Non-Terrestrial Networks Using ns-3.
+The initial idea was to investigate satellite\-network QoS, especially latency, using network simulation\. The specific input parameters and the reproducible simulation scenario were not yet fully defined\.
 
-The initial idea was to investigate satellite-network QoS, especially latency, using network simulation. The specific input parameters and the reproducible simulation scenario were not yet fully defined.
+### 4\.2 Revised title
 
-4.2 Revised title
+**Impact of Network Load on End\-to\-End Latency in LEO Satellite Networks Using SNS3**
 
-Impact of Network Load on End-to-End Latency in LEO Satellite Networks Using SNS3
+### 4\.3 Research question
 
-4.3 Research question
+**How does increasing network traffic load affect end\-to\-end packet latency in a LEO satellite communication scenario?**
 
-How does increasing network traffic load affect end-to-end packet latency in a LEO satellite communication scenario?
-
-4.4 Changes and reasons
+### 4\.4 Changes and reasons
 
 |Aspect           |A1 concept         |Revised after A3                   |Reason                                |
 |-----------------|-------------------|-----------------------------------|--------------------------------------|
@@ -360,27 +370,27 @@ How does increasing network traffic load affect end-to-end packet latency in a L
 |Secondary outputs|Undecided          |Delay spread, 95th percentile, PDR |Capture variability and losses        |
 |Experiment       |General simulation |Parameter sweep with repeated runs |Better reproducibility                |
 
-Why the proposal changed. Paper 1 shows that traffic load and queues can strongly affect delay. Paper 2 provides an example of a satellite-network scenario and packet delivery measurement. I therefore narrowed my project to a controlled load–latency experiment, rather than changing many satellite and protocol parameters simultaneously.
+**Why the proposal changed\.** Paper 1 shows that traffic load and queues can strongly affect delay\. Paper 2 provides an example of a satellite\-network scenario and packet delivery measurement\. I therefore narrowed my project to a controlled load–latency experiment, rather than changing many satellite and protocol parameters simultaneously\.
 
-Scope caveat: This revision is based on the A1 topic discussed during the project. The exact wording should be checked against the original A1 submission before final upload.
+**Scope caveat:** This revision is based on the A1 topic discussed during the project\. The exact wording should be checked against the original A1 submission before final upload\.
 
-────────
+## 5 Proposed SNS3 experiment
 
-5. Proposed SNS3 Experiment
+> **Proposal only:** No simulation was run for A3. All values in this section are candidate settings and must be verified against a working SNS3 scenario.
 
-**Proposal only:** No simulation was run for A3. All values in this section are candidate settings and must be verified 
+### 5\.1 Conceptual topology
 
-5.1 Conceptual topology
-
+```mermaid
 flowchart LR
     U[Traffic sources / users] --> G[Ground terminal]
     G --> S[LEO satellite link]
     S --> R[Receiving terminal]
     R --> M[Latency measurements]
+```
 
-The satellite topology and channel settings will initially remain fixed.
+The satellite topology and channel settings will initially remain fixed\.
 
-5.2 Proposed input parameters
+### 5\.2 Proposed input parameters
 
 |Parameter            |Candidate values               |Purpose                                 |
 |---------------------|-------------------------------|----------------------------------------|
@@ -393,91 +403,85 @@ The satellite topology and channel settings will initially remain fixed.
 |Simulation duration  |To be selected after validation|Enough packets for meaningful statistics|
 |Random seeds         |Several documented runs        |Estimate run-to-run variability         |
 
-A two-dimensional sweep across user count and offered rate would help distinguish the effects of the number of sources and their individual sending rates.
+A two\-dimensional sweep across user count and offered rate would help distinguish the effects of the number of sources and their individual sending rates\.
 
-5.3 Output metrics
+### 5\.3 Output metrics
 
-End-to-end delay per received packet:
-
-$$
-D_i = t_{\mathrm{RX},i} - t_{\mathrm{TX},i}
-$$
-
-Mean delay:
+**End\-to\-end delay per received packet:**
 
 $$
-\overline{D} = \frac{1}{N_{\mathrm{RX}}}\sum_{i=1}^{N_{\mathrm{RX}}}D_i
+D\_i = t\_\{\\mathrm\{RX\},i\} \- t\_\{\\mathrm\{TX\},i\}
 $$
 
-Delay standard deviation:
+**Mean delay:**
 
 $$
-\sigma_D = \sqrt{\frac{1}{N_{\mathrm{RX}}}\sum_{i=1}^{N_{\mathrm{RX}}}(D_i-\overline{D})^2}
+\\overline\{D\} = \\frac\{1\}\{N\_\{\\mathrm\{RX\}\}\}\\sum\_\{i=1\}^\{N\_\{\\mathrm\{RX\}\}\}D\_i
 $$
 
-Packet delivery ratio:
+**Delay standard deviation:**
 
 $$
-PDR = \frac{N_{\mathrm{RX}}}{N_{\mathrm{TX}}}\times100%.
+\\sigma\_D = \\sqrt\{\\frac\{1\}\{N\_\{\\mathrm\{RX\}\}\}\\sum\_\{i=1\}^\{N\_\{\\mathrm\{RX\}\}\}&#40;D\_i\-\\overline\{D\}&#41;^2\}
 $$
 
-The 95th-percentile delay can also be calculated from the sorted received-packet delays.
+**Packet delivery ratio:**
 
-5.4 Planned procedure
+$$
+PDR = \\frac\{N\_\{\\mathrm\{RX\}\}\}\{N\_\{\\mathrm\{TX\}\}\}\\times100%\.
+$$
 
-1. Install a compatible SNS3 environment in a separate GitHub Codespace.
-2. Build and run an existing satellite example without modifications.
-3. Check which channel, topology, and traffic models are actually available.
-4. Implement a small baseline topology.
-5. Add UDP packet generation and timestamp-based latency measurement.
-6. Confirm that packet counts and timestamps are correct.
-7. Sweep the proposed user counts and offered traffic rates.
-8. Repeat scenarios with documented random seeds.
-9. Export measurements to CSV.
-10. Plot mean latency, variability, and delivery ratio using Python.
-11. Discuss whether the observed trends agree qualitatively with the literature.
+The 95th\-percentile delay can also be calculated from the sorted received\-packet delays\.
 
-5.5 Hypotheses
+### 5\.4 Planned procedure
 
-• H1: Mean latency will increase as offered load approaches link capacity.
-• H2: Delay variability will increase under congestion.
-• H3: With low offered load, propagation and transmission delay will dominate total latency.
+1. Install a compatible SNS3 environment in a separate GitHub Codespace\.
+2. Build and run an existing satellite example without modifications\.
+3. Check which channel, topology, and traffic models are actually available\.
+4. Implement a small baseline topology\.
+5. Add UDP packet generation and timestamp\-based latency measurement\.
+6. Confirm that packet counts and timestamps are correct\.
+7. Sweep the proposed user counts and offered traffic rates\.
+8. Repeat scenarios with documented random seeds\.
+9. Export measurements to CSV\.
+10. Plot mean latency, variability, and delivery ratio using Python\.
+11. Discuss whether the observed trends agree qualitatively with the literature\.
 
-These are hypotheses, not measured results.
+### 5\.5 Hypotheses
 
-────────
+- **H1:** Mean latency will increase as offered load approaches link capacity\.
+- **H2:** Delay variability will increase under congestion\.
+- **H3:** With low offered load, propagation and transmission delay will dominate total latency\.
 
-6. Limitations and Future Work
+These are hypotheses, **not measured results**\.
 
-6.1 Literature limitations
+## 6 Limitations and future work
 
-The papers use different simulation frameworks and assumptions. Paper 1 is a queueing-oriented study, while Paper 2 is a 5G satellite-terrestrial system-level simulator. Their numerical results are not directly interchangeable. Some reproduction details, especially random seeds and selected PHY/MAC parameters, still need confirmation from the full experimental configuration.
+### 6\.1 Literature limitations
 
-6.2 Planned experiment limitations
+The papers use different simulation frameworks and assumptions\. Paper 1 is a queueing\-oriented study, while Paper 2 is a 5G satellite\-terrestrial system\-level simulator\. Their numerical results are not directly interchangeable\. Some reproduction details, especially random seeds and selected PHY/MAC parameters, still need confirmation from the full experimental configuration\.
 
-• A small topology will not represent a complete operational constellation.
-• Fixed satellite geometry will not capture all orbital mobility effects.
-• Simplified UDP traffic may not reflect realistic applications.
-• SNS3 may not expose exactly the same 5G NR mechanisms as Paper 2.
-• Average latency for received packets does not describe losses; PDR should be reported separately.
-• Exact numerical reproduction is not guaranteed when the simulator or channel model differs.
+### 6\.2 Planned experiment limitations
 
-6.3 Future extensions
+- A small topology will not represent a complete operational constellation\.
+- Fixed satellite geometry will not capture all orbital mobility effects\.
+- Simplified UDP traffic may not reflect realistic applications\.
+- SNS3 may not expose exactly the same 5G NR mechanisms as Paper 2\.
+- Average latency for received packets does not describe losses; PDR should be reported separately\.
+- Exact numerical reproduction is not guaranteed when the simulator or channel model differs\.
 
-After establishing the baseline, possible extensions include changing satellite altitude or elevation angle, adding bursty traffic, evaluating handover, measuring throughput and jitter, and comparing different application QoS requirements.
+### 6\.3 Future extensions
 
-────────
+After establishing the baseline, possible extensions include changing satellite altitude or elevation angle, adding bursty traffic, evaluating handover, measuring throughput and jitter, and comparing different application QoS requirements\.
 
-7. References
+## 7 References
 
-[1] On the Queuing Delay of Time-Varying Channels in Low Earth Orbit Satellite Constellations, IEEE Access, 2021. DOI: 10.1109/ACCESS.2021.3089005. IEEE Xplore.
+**&#91;1&#93;** *On the Queuing Delay of Time\-Varying Channels in Low Earth Orbit Satellite Constellations*, IEEE Access, 2021\. DOI: [10\.1109/ACCESS\.2021\.3089005](https://doi.org/10.1109/ACCESS.2021.3089005)\. [IEEE Xplore](https://ieeexplore.ieee.org/document/9454162)\.
 
-[2] NS-3-based 5G Satellite-Terrestrial Integrated Network Simulator, IEEE MELECON, 2022. DOI: 10.1109/MELECON53508.2022.9843098. IEEE Xplore.
+**&#91;2&#93;** *NS\-3\-based 5G Satellite\-Terrestrial Integrated Network Simulator*, IEEE MELECON, 2022\. DOI: [10\.1109/MELECON53508\.2022\.9843098](https://doi.org/10.1109/MELECON53508.2022.9843098)\. [IEEE Xplore](https://ieeexplore.ieee.org/document/9843098)\.
 
-────────
+## Conclusion
 
-Conclusion
+The first paper demonstrates the importance of traffic load, time\-varying satellite links, and queueing delay\. The second provides a system\-level example of 5G satellite\-terrestrial performance measurement\. Together they motivate a focused experiment on the relationship between network load and end\-to\-end latency\. The revised project will use SNS3 if the required topology and tracing capabilities are supported\. The next stage is to validate the simulator and implement a reproducible baseline\.
 
-The first paper demonstrates the importance of traffic load, time-varying satellite links, and queueing delay. The second provides a system-level example of 5G satellite-terrestrial performance measurement. Together they motivate a focused experiment on the relationship between network load and end-to-end latency. The revised project will use SNS3 if the required topology and tracing capabilities are supported. The next stage is to validate the simulator and implement a reproducible baseline.
-
-A3 is a literature review and experiment proposal; no new simulation is claimed.
+**A3 is a literature review and experiment proposal; no new simulation is claimed\.**
