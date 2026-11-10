@@ -484,4 +484,3 @@ After establishing the baseline, possible extensions include changing satellite 
 
 The first paper demonstrates the importance of traffic load, time\-varying satellite links, and queueing delay\. The second provides a system\-level example of 5G satellite\-terrestrial performance measurement\. Together they motivate a focused experiment on the relationship between network load and end\-to\-end latency\. The revised project will use SNS3 if the required topology and tracing capabilities are supported\. The next stage is to validate the simulator and implement a reproducible baseline\.
 
-**A3 is a literature review and experiment proposal; no new simulation is claimed\.**
